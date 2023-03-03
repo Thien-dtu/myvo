@@ -1,23 +1,20 @@
-import logo from './logo.svg';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+// import DisplayLogin from "./component/cms/Login";
+import DisplayError from './pages/Error';
+import DisplayProduct from './pages/Products';
+import JsonDataDisplay from './pages/TableUser';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/" element={<JsonDataDisplay />} />
+        <Route path="/app-list" element={<DisplayProduct />} />
+        <Route path="/app-list/*" element={<DisplayError />} />
+        <Route path="*" element={<DisplayError />} />
+      </Routes>
+      {/* <JsonDataDisplay /> */}
     </div>
   );
 }
