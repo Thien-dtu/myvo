@@ -72,7 +72,12 @@ function DisplayProduct() {
       </div>
       <Link to="/">
         <button type="button mt-20" class="btn btn-primary">
-          table-app
+          Table-App
+        </button>
+      </Link>
+      <Link to="/crud">
+        <button type="button" className="btn btn-primary ms-2">
+          CRUD
         </button>
       </Link>
     </div>

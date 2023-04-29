@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import JsonData from "../users.json";
 
-// function PhoneFormat(props) {
-//   let phone = props.children;
-//   let phoneFormat = "+84".concat(phone.replace(/-/g, ""));
-//   return <td>{phoneFormat}</td>;
-// }
+function PhoneFormat(props) {
+  let phone = props.children;
+  let phoneFormat = "+84".concat(phone.replace(/-/g, ""));
+  return <td>{phoneFormat}</td>;
+}
 
 function SortSelector({ columns, handleSort }) {
   const [selectedOption, setSelectedOption] = useState(columns[0]);
@@ -31,7 +31,6 @@ function SortSelector({ columns, handleSort }) {
 
 function JsonDataDisplay() {
   const [data, setData] = useState(changDateFormat(JsonData));
-  const [dataView, setDataView] = useState([]);
   const [filterValue, setFilterValue] = useState("");
   const [sortBy, setSortBy] = useState("id");
 
@@ -40,36 +39,16 @@ function JsonDataDisplay() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const applyFilter = (data, filterValue) => {
-    let arr = data.filter((item) => {
+    data.filter((item) => {
       for (let key in item) {
-        if (item[key].toString().toLowerCase().includes(filterValue.toLowerCase())) {
+        if (
+          item[key].toString().toLowerCase().includes(filterValue.toLowerCase())
+        ) {
           return item;
         }
       }
     });
-    // setData(arr)
-    return arr;
   };
-
-  const getUserData = () => {
-    fetch('../users.json', {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'            }
-    })
-    .then(response => response.json())
-    .then(json => {
-        json.map(user => {
-            let newPhone = user.phone;
-            newPhone = newPhone.slice(newPhone.indexOf('-') + 1);
-            newPhone = newPhone.replace(/-/g, '');
-            user.phone = '+84' + newPhone;
-            return user;
-        });
-        setData(json);
-        setDataView(json);
-    });
-}
 
   let indexOfLastPost = currentPage * postsPerPage;
   let indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -119,9 +98,14 @@ function JsonDataDisplay() {
   return (
     <div>
       <div className="float-start btn-change-page">
-        <Link to="/app-list">
+        <Link to="/product">
           <button type="button" className="btn btn-primary">
-            app-list
+            List
+          </button>
+        </Link>
+        <Link to="/crud">
+          <button type="button" className="btn btn-primary ms-2">
+            CRUD
           </button>
         </Link>
       </div>
